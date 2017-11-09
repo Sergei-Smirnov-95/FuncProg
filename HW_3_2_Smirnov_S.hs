@@ -1,4 +1,4 @@
-#import Data
+
 --3.2
 data ReverseList a = RNil | RCons (ReverseList a) a 
 -- 
