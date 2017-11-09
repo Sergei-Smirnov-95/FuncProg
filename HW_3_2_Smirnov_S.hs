@@ -32,7 +32,7 @@ helpfromLi (h:t) = if t == []  then RCons RNil h else RCons (helpfromLi t) h
 fromList lst = helpfromLi ( reverse lst )
 
 --
-instance Monoid (ReverseList lst) where
+instance Monoid (ReverseList l) where
  mempty = RNil
  mappend RNil lst= lst
  mappend lst RNil = lst
