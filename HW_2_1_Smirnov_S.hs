@@ -62,12 +62,20 @@ containsElement (Node c l r) y | (c == y) = True
                                | (c > y) = containsElement r y
                                
 
+
+helpnearestGE EmptyTree fin = fin - 1 
+helpnearestGE (Leaf l) fin = l
+helpnearestGE (Node c l r) fin |(c == fin) = c 
+                           |(c < fin) = if helpnearestGE l fin < fin then fin - 1 else helpnearestGE l fin
+                           |(c > fin) = if helpnearestGE r fin < fin then c else helpnearestGE r fin  
+                               
 nearestGE :: BinaryTree -> Integer -> Integer
 nearestGE EmptyTree _ = error "Empty Tree"
-nearestGE (Leaf l) fin = l
-nearestGE (Node c l r) fin |(c == fin) = c 
-                           |(c < fin) = nearestGE l fin --if nearestGE l fin > fin then c else nearestGE l fin
-                           |(c > fin) = if nearestGE r fin < fin then c else nearestGE r fin  
+nearestGE (Leaf l) fin = if l < fin then error "have not element" else l
+nearestGE (Node c l r) fin  |(fin== c) = fin
+                            |(c < fin) = if helpnearestGE l fin < fin then error "have not element" else helpnearestGE l fin
+                            |(c > fin) = if helpnearestGE r fin < fin then c else helpnearestGE r fin
+
 
 --treeFromList с вспомогательной функцией, необходимой для формирования дерева из пустого
 treehelper t (l:r) = treehelper (insert t l) r
