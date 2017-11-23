@@ -8,7 +8,8 @@ foLdl fun b (l:r) = foLdl fun (fun b l) r
 --foLdr :: (Integer -> Integer -> Integer) -> Integer -> [Integer] -> Integer
 foLdr fun b [] = b
 --foLdr fun b lst = fun (foLdr fun b (init lst)) (last lst)
-foLdr fun b lst = foLdr  fun (fun b (last lst)) (init lst)
+--foLdr fun b lst = foLdr  fun (fun b (last lst)) (init lst)
+foLdr fun b (l:r) =fun (foLdr fun b r) l
 
 mAp fun lst = foLdr (\acum x ->(fun x) : acum) [] lst 
   
