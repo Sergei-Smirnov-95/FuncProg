@@ -1,4 +1,3 @@
-
 --3.2
 data ReverseList a = RNil | RCons (ReverseList a) a 
 -- 
@@ -29,19 +28,25 @@ instance (Ord a) => Ord(ReverseList a) where
 helpfromLi [] = RNil
 helpfromLi (h:t) = if t == []  then RCons RNil h else RCons (helpfromLi t) h
 
-fromList lst = helpfromLi ( reverse lst )
+fromList lst = helpfromLi ( reverse lst ) 
 
 --
-instance Monoid (ReverseList l) where
+class Monoid a where 
+ mempty :: a 
+ mappend :: a -> a -> a 
+ 
+instance Monoid (ReverseList a) where
  mempty = RNil
- mappend RNil lst= lst
- mappend lst RNil = lst
- mappend lst1 lst2 = fromList $ (toList lst1) : (toList lst2)
-
---
-
+ mappend RNil lst2 = lst2
+ mappend lst1 RNil = lst1
+ --mappend lst1 lst2 = fromList ( (toList lst1) : (toList lst2))
+ mappend lst1 (RCons tail2 head2) = RCons (mappend lst1 tail2) head2
+ 
 instance Functor ReverseList where 
  fmap fun RNil = RNil
  fmap fun (RCons tail head) = RCons (fmap fun tail) (fun head)
  
---
+---------------Tests-----------------------
+a = fromList [1,2,3,4]
+b = fromList [5,6,7,8]
+test = mappend a b
