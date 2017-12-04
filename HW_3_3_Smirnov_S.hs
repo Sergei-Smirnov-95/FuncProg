@@ -32,7 +32,7 @@ instance Monoid (PSet4 s) where
  mempty = PSet4(\a -> False)
  mappend (PSet4 set1) (PSet4 set2) = PSet4(\a -> ((set1 a)|| (set2 a)) && not((set1 a) && (set2 a)))
  
---Декартово произведение предполагает(предполагает информацию о паре данных,в задании только одно)
+--Декартово произведение (предполагает информацию о паре данных,в задании только одно)
 --instance Monoid (PSet5 s) where 
 -- mempty = PSet5(\a b -> False)
 -- mappend (PSet5 set1) (PSet5 set2) = PSet5(\a b-> ((set1 a) && (set2 b)))
